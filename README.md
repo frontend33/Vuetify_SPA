@@ -1,4 +1,4 @@
-# my-project
+# My project use Vuetify
 
 > A Vue.js project
 

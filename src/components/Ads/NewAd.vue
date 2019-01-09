@@ -18,7 +18,6 @@
             label="Ad description"
             type="text"
             v-model="description"
-
             :rules="[v=> !!v || 'Description is required']"
           >
           </v-textarea>

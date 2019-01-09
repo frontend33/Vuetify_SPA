@@ -78,9 +78,12 @@ export default {
         const ad = {
           title: this.title,
           description: this.description,
-          promo: this.promo
+          promo: this.promo,
+          imgSrc: 'https://miro.medium.com/max/854/1*nSOFaRRUwGbbYI3cwoQ38A.jpeg'
         }
-        console.log(ad)
+        // Что бы добавить новое объявление к store в общий список объявлений
+        // Запускаем с dispatch новое событие которое хотим вызывать
+        this.$store.dispatch('createAdActions', ad)
       }
     }
   }

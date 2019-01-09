@@ -4,13 +4,13 @@
       <v-flex xs12>
         <v-card>
           <v-img
-            src="https://cdn.vuetifyjs.com/images/carousel/sky.jpg"
+            :src="ad.imgSrc"
             height="300px"
           >
           </v-img>
           <v-card-text>
-            <h1 class="text--primary">lorem</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta, beatae.</p>
+            <h1 class="text--primary">{{ad.title}}</h1>
+            <p>{{ad.descripton}}</p>
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
@@ -25,8 +25,13 @@
 
 <script>
 export default {
-  data () {
-    return {}
+  // Получаем props текущего id из new Router и передаем его в adById
+  props: ['id'],
+  computed: {
+    ad () {
+      const id = this.id
+      return this.$store.getters.adById(id)
+    }
   }
 }
 </script>

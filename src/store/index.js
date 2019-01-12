@@ -1,3 +1,4 @@
+// Создаем общую шину событий где прописываем все подключенные модули .js
 import Vue from 'vue'
 import Vuex from 'vuex'
 import ads from './ads'

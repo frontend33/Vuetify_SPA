@@ -84,17 +84,20 @@ export default {
     }
   },
   methods: {
+    // При клике на кнопку если форма валидна создаем объет юсер с его полями
     onSubmit () {
       if (this.$refs.form.validate()) {
         const user = {
           email: this.email,
           password: this.password
         }
+        // Далее диспатчим в шину событий нового юзера
         this.$store.dispatch('registerUser', user)
-        .then(()=> {
-          this.$router.push('/')
-        })
-        .catch(err => console.log(err))
+          .then(() => {
+            // Когда асинхронный вызов выполнен вызываем редирект (переход на главную страницу)
+            this.$router.push('/')
+          })
+          .catch(() => {})
       }
     }
   }

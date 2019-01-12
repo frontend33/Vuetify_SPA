@@ -12,7 +12,6 @@ export default ({
   },
   mutations: {
     setUser (state, payload) {
-      console.log(payload)
       state.user = payload
     }
   },
@@ -54,11 +53,22 @@ export default ({
         commit('setError', error.message)
         throw error
       }
+    },
+    logoutUser ({commit}) {
+      // Выход из сайта
+      fb.auth().signOut()
+      commit('setUser', null)
+    },
+    autoLoginUser ({commit}, payload) {
+      commit('setUser', new User(payload.uid))
     }
   },
   getters: {
     user (state) {
       return state.user
+    },
+    isUserLoggedIn (state) {
+      return state.user !== null
     }
   }
 })

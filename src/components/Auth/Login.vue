@@ -83,6 +83,12 @@ export default {
           .catch(() => {})
       }
     }
+  },
+  created () {
+    // Проверяем есть ли у query параметра в ссылке содержится loginError
+    if (this.$route.query['loginError']) {
+      this.$store.dispatch('setError', 'Please log to access this page')
+    }
   }
 }
 </script>

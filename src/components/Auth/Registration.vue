@@ -80,6 +80,7 @@ export default {
   },
   computed: {
     loading () {
+      // Берем loading из shared.js и можем манипулировать состоянием true false
       return this.$store.getters.loading
     }
   },

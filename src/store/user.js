@@ -46,7 +46,7 @@ export default ({
       try {
         // Метод который позволяет залогиниться в систему
         const user = await fb.auth().signInWithEmailAndPassword(email, password)
-        commit('setUser', new User(user.uid))
+        // commit('setUser', new User(user.uid))
         commit('setLoading', false)
       } catch (error) {
         commit('setLoading', false)

@@ -49,7 +49,8 @@
           <v-flex xs12>
             <v-spacer></v-spacer>
             <v-btn
-            :disabled="!valid"
+            :loading="loading"
+            :disabled="!valid || loading"
               color="success"
               @click="createAd"
             >
@@ -72,6 +73,11 @@ export default {
       valid: false
     }
   },
+  computed: {
+    loading () {
+      return this.$store.getters.loading
+    }
+  },
   methods: {
     createAd () {
       if (this.$refs.form.validate()) {
@@ -84,6 +90,10 @@ export default {
         // Что бы добавить новое объявление к store в общий список объявлений
         // Запускаем с dispatch новое событие которое хотим вызывать
         this.$store.dispatch('createAdActions', ad)
+          .then(() => {
+            this.$router.push('/list')
+          })
+          .catch(() => {})
       }
     }
   }

@@ -30,23 +30,44 @@ export default {
     async createAdActions ({commit, getters}, payload) {
       commit('clearError')
       commit('setLoading', true)
+      console.log(payload)
+      const image = payload.image
       try {
         const newAd = new Ad(
           payload.title,
           payload.description,
           getters.user.id,
-          payload.imgSrc,
+          '',
           payload.promo
         )
         // указываем к какой сущности из бд подключаемся (таблица ads)
         // что бы создать новый элемент в  бд используем метод push
         // метод идет асинхронно к бд и создает поля
         const ad = await fb.database().ref('ads').push(newAd)
+        // Находим расширение картинки
+        const imageExtansion = image.name.slice(image.name.lastIndexOf("."))
+        console.log(imageExtansion)
+        // Кладем нашу картинку к файлу с названием который будет совпадать с ключом ad.key
+        // метод put что бы внести наши изменения
+        // const fileData = await fb.storage().ref(`ads/${ad.key}.${imageExtansion}`).put(image)
+        const fileData = await fb.storage().ref(`ads/${ad.key}.${imageExtansion}`).put(image)
+      
+        // После того как завершится запрос мы можем получить url нашей картинки
+        // Так как грузим один элемент ставим индекс 0
+        // const imgSrc = fileData.metadata.downloadURLs[0]
+        // const imgSrc = fileData.ref.getDownloadURL()
+        const imgSrc = await fileData.ref.getDownloadURL()
+        // для обновления в бд
+        await fb.database().ref('ads').child(ad.key).update({
+          imgSrc
+        })
+        
         commit('setLoading', false)
         commit('createAdMutations', {
           // Расширим объект newAd еще одним ключом при помощи spread оператора
           ...newAd,
-          id: ad.key
+          id: ad.key,
+          imgSrc: imgSrc
         })
       } catch (error) {
         commit('setError', error.message)

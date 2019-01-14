@@ -24,15 +24,22 @@
         </v-form>
         <v-layout row mb-3>
           <v-flex xs12>
-            <v-btn color="warning">
+            <v-btn color="warning" @click="triggerUpload">
               Upload
               <v-icon right dark>cloud_upload</v-icon>
             </v-btn>
+            <input 
+              ref="fileInput"
+              type="file"
+              style="display:none;"
+              accept="image/*"
+              @change="onFileChange"
+            >
           </v-flex>
         </v-layout>
         <v-layout row>
           <v-flex xs12>
-            <img src="" height="100">
+            <img :src="imageSrc" height="100" v-if="imageSrc">
           </v-flex>
         </v-layout>
         <v-layout row>
@@ -50,7 +57,7 @@
             <v-spacer></v-spacer>
             <v-btn
             :loading="loading"
-            :disabled="!valid || loading"
+            :disabled="!valid || !image || loading"
               color="success"
               @click="createAd"
             >
@@ -70,7 +77,9 @@ export default {
       title: '',
       description: '',
       promo: false,
-      valid: false
+      valid: false,
+      image: null,
+      imageSrc: ''
     }
   },
   computed: {
@@ -80,12 +89,12 @@ export default {
   },
   methods: {
     createAd () {
-      if (this.$refs.form.validate()) {
+      if (this.$refs.form.validate() && this.imageSrc) {
         const ad = {
           title: this.title,
           description: this.description,
           promo: this.promo,
-          imgSrc: 'https://miro.medium.com/max/854/1*nSOFaRRUwGbbYI3cwoQ38A.jpeg'
+          image: this.image
         }
         // Что бы добавить новое объявление к store в общий список объявлений
         // Запускаем с dispatch новое событие которое хотим вызывать
@@ -95,6 +104,19 @@ export default {
           })
           .catch(() => {})
       }
+    },
+    triggerUpload () {
+      this.$refs.fileInput.click()
+    },
+    onFileChange (event) {
+      const file = event.target.files[0]
+
+      const reader = new FileReader()
+      reader.onload = e => {
+        this.imageSrc = reader.result
+      }
+      reader.readAsDataURL(file)
+      this.image = file
     }
   }
 }

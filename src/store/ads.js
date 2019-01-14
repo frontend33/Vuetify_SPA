@@ -1,6 +1,7 @@
 import * as fb from 'firebase'
+
 class Ad {
-  constructor(title, description, ownerId, imgSrc = '', promo = false, id = null) {
+  constructor (title, description, ownerId, imgSrc = '', promo = false, id = null) {
     this.title = title
     this.description = description
     this.ownerId = ownerId
@@ -45,13 +46,12 @@ export default {
         // метод идет асинхронно к бд и создает поля
         const ad = await fb.database().ref('ads').push(newAd)
         // Находим расширение картинки
-        const imageExtansion = image.name.slice(image.name.lastIndexOf("."))
+        const imageExtansion = image.name.slice(image.name.lastIndexOf('.'))
         console.log(imageExtansion)
         // Кладем нашу картинку к файлу с названием который будет совпадать с ключом ad.key
         // метод put что бы внести наши изменения
         // const fileData = await fb.storage().ref(`ads/${ad.key}.${imageExtansion}`).put(image)
         const fileData = await fb.storage().ref(`ads/${ad.key}.${imageExtansion}`).put(image)
-      
         // После того как завершится запрос мы можем получить url нашей картинки
         // Так как грузим один элемент ставим индекс 0
         // const imgSrc = fileData.metadata.downloadURLs[0]
@@ -61,7 +61,6 @@ export default {
         await fb.database().ref('ads').child(ad.key).update({
           imgSrc
         })
-        
         commit('setLoading', false)
         commit('createAdMutations', {
           // Расширим объект newAd еще одним ключом при помощи spread оператора

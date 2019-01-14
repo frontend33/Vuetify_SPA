@@ -4,7 +4,7 @@
       <v-flex xs12 sm-6 offset-sm3>
         <h1 class="text-secondary mb-3">Create new ad</h1>
         <v-form  ref="form" v-model="valid" validation class="mb-3">
-          <v-text-field
+          <v-textarea
             name="title"
             label="Ad title"
             type="text"
@@ -12,7 +12,7 @@
             required
             :rules="[v=> !!v || 'Title is required']"
           >
-          </v-text-field>
+          </v-textarea>
           <v-textarea
             name="description"
             label="Ad description"
@@ -28,7 +28,7 @@
               Upload
               <v-icon right dark>cloud_upload</v-icon>
             </v-btn>
-            <input 
+            <input
               ref="fileInput"
               type="file"
               style="display:none;"
@@ -110,7 +110,6 @@ export default {
     },
     onFileChange (event) {
       const file = event.target.files[0]
-
       const reader = new FileReader()
       reader.onload = e => {
         this.imageSrc = reader.result

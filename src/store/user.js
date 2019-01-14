@@ -45,7 +45,9 @@ export default ({
       commit('setLoading', true)
       try {
         // Метод который позволяет залогиниться в систему
+        /* eslint-disable no-unused-vars */
         const user = await fb.auth().signInWithEmailAndPassword(email, password)
+        /* eslint-disable no-unused-vars */
         // commit('setUser', new User(user.uid))
         commit('setLoading', false)
       } catch (error) {

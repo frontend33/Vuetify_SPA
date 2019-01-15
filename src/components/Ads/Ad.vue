@@ -10,13 +10,15 @@
           </v-img>
           <v-card-text>
             <h1 class="text--primary">{{ad.title}}</h1>
-            <p>{{ad.descripton}}</p>
+            <p>{{ad.description}}</p>
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
             <!-- <v-btn color="warning" >Edit</v-btn> -->
-            <!-- Передаем байндим в компонент наше объявление что бы в пропсах открыть -->
-            <app-edit-ad-modal :ad="ad"></app-edit-ad-modal>
+            <!-- Передаем байндим в компонент наше объявление что бы в пропсах открыть
+            ставим условие являемся ли мы владельцем объявления
+            -->
+            <app-edit-ad-modal :ad="ad" v-if="isOwner"></app-edit-ad-modal>
             <v-btn color="success">Buy</v-btn>
           </v-card-actions>
         </v-card>
@@ -46,6 +48,10 @@ export default {
     },
     loading () {
       return this.$store.getters.loading
+    },
+    // Определяем что текущий пользователь является владельцем объявления
+    isOwner () {
+      return this.ad.ownerId === this.$store.getters.user.id
     }
   },
   components: {

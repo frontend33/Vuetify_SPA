@@ -39,7 +39,6 @@ export default {
     async createAdActions ({commit, getters}, payload) {
       commit('clearError')
       commit('setLoading', true)
-      console.log(payload)
       const image = payload.image
       try {
         const newAd = new Ad(
@@ -137,9 +136,10 @@ export default {
     }
   },
   getters: {
-    // ads (state) {
-    //   return state.ads
-    // },
+    // Показ всех объявлений из базы на главной странице
+    ads (state) {
+      return state.ads
+    },
     promoAds (state) {
       return state.ads.filter(ad => {
         return ad.promo === true

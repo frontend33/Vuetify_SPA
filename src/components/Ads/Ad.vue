@@ -19,7 +19,7 @@
             ставим условие являемся ли мы владельцем объявления
             -->
             <app-edit-ad-modal :ad="ad" v-if="isOwner"></app-edit-ad-modal>
-            <v-btn color="success">Buy</v-btn>
+            <app-buy-modal :ad="ad"></app-buy-modal>
           </v-card-actions>
         </v-card>
         <div v-else class="text-xs-center">

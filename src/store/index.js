@@ -5,11 +5,11 @@ import ads from './ads'
 import user from './user'
 // Показывать ошибки и лоадинг
 import shared from './shared'
-
+import orders from './orders'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   modules: {
-    ads, user, shared
+    ads, user, shared, orders
   }
 })

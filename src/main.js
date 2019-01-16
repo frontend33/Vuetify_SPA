@@ -7,10 +7,17 @@ import * as fb from 'firebase'
 import 'vuetify/dist/vuetify.min.css'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import BuyModal from '@/components/Shared/BuyModal'
+import './stylus/main.styl'
+/* Изменит стандартные классы
+ import colors from 'vuetify/es5/util/colors'
+ theme: {
+    primary: colors.blue.darken3
+  }
+*/
 Vue.use(Vuetify, {
   iconfont: 'md'
 })
-Vue.use(Vuetify)
+
 Vue.component('app-buy-modal', BuyModal)
 Vue.config.productionTip = false
 /* eslint-disable no-new */

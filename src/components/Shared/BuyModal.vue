@@ -85,18 +85,18 @@ export default {
       if (this.name !== '' && this.phone !== '') {
         this.localLoading = true
         this.$store.dispatch('createOrder', {
-         name: this.phone,
-         phone: this.phone,
-         // adId получаем с метода prop
-         adId: this.ad.id,
-         ownerId: this.ad.ownerId
+          name: this.phone,
+          phone: this.phone,
+          // adId получаем с метода prop
+          adId: this.ad.id,
+          ownerId: this.ad.ownerId
         })
-        .finally(() => {
-          this.name = '',
-          this.phone = '',
-          this.localLoading = false
-          this.modal = false
-        })
+          .finally(() => {
+            this.name = ''
+            this.phone = ''
+            this.localLoading = false
+            this.modal = false
+          })
       }
     }
   }
